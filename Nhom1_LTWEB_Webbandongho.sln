@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34714.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nhom1_LTWEB_Webbandongho", "Nhom1_LTWEB_Webbandongho\Nhom1_LTWEB_Webbandongho.csproj", "{673437E0-36A6-4D7B-90B1-B84A8F798572}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{673437E0-36A6-4D7B-90B1-B84A8F798572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{673437E0-36A6-4D7B-90B1-B84A8F798572}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{673437E0-36A6-4D7B-90B1-B84A8F798572}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{673437E0-36A6-4D7B-90B1-B84A8F798572}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {537B3685-FB59-4B83-B427-24ACC2B5AFEE}
+	EndGlobalSection
+EndGlobal
