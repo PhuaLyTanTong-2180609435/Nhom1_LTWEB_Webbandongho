@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using Nhom1_LTWEB_Webbandongho.Models;
+using Nhom1_LTWEB_Webbandongho.Repositories;
+
 namespace Nhom1_LTWEB_Webbandongho
 {
     public class Program
@@ -6,9 +10,12 @@ namespace Nhom1_LTWEB_Webbandongho
         {
             var builder = WebApplication.CreateBuilder(args);
 
+
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddScoped<IProductRepository, EFProductRepository>();
+            builder.Services.AddScoped<ICategoryRepository, EFCategoryRepository>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
