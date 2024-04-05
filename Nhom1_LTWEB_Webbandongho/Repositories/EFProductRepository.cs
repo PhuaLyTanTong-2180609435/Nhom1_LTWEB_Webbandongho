@@ -23,6 +23,14 @@ namespace Nhom1_LTWEB_Webbandongho.Repositories
             // lấy thông tin kèm theo category
             return await _context.Products.Include(p => p.Category).FirstOrDefaultAsync(p => p.Id == id);
         }
+
+        public async Task<IEnumerable<Product>> GetByNameAsync(string name)
+        {
+            return await _context.Products
+                     .Include(p => p.Category)
+                     .Where(x => x.Name.Replace(" ", "").ToLower().Contains(name.Replace(" ", "").ToLower()))
+                     .ToListAsync();
+        }
         public async Task AddAsync(Product product)
         {
             _context.Products.Add(product);

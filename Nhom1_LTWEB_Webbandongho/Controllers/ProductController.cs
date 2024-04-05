@@ -15,8 +15,18 @@ namespace Nhom1_LTWEB_Webbandongho.Controllers
         }
         public async Task<IActionResult> Index()
         {
+           
             var products = await _productRepository.GetAllAsync();
             return View(products);
+        }
+        public async Task<IActionResult> Display(int id)
+        {
+            var product = await _productRepository.GetByIdAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
         }
     }
 }

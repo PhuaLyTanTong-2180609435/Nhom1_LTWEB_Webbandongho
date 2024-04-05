@@ -6,6 +6,7 @@ namespace Nhom1_LTWEB_Webbandongho.Repositories
     {
         Task<IEnumerable<Product>> GetAllAsync();
         Task<Product> GetByIdAsync(int id);
+        Task<IEnumerable<Product>> GetByNameAsync(string name);
         Task AddAsync(Product product);
         Task UpdateAsync(Product product);
         Task DeleteAsync(int id);

@@ -1,4 +1,7 @@
-﻿@model IEnumerable<Nhom1_LTWEB_Webbandongho.Models.Product>
+﻿@model X.PagedList.IPagedList<Nhom1_LTWEB_Webbandongho.Models.Product>
+
+
+@using X.PagedList.Mvc.Core
 @{
     ViewData["Title"] = "Home Page";
     int numOfQuantity = 1;
@@ -12,16 +15,16 @@
                 <div class="col mb-5">
                     <div class="card gap-3" style="width: 18rem">
                         <img src="@item.ImageUrl" class="card-img-top" alt="..."
-                             style="height: 300px">
+                             style="height: 200px">
                         <div class="card-body">
                             <h5 class="card-title">
-                                @Html.DisplayFor(modelItem =>
-                            item.Name)
+                                @Html.DisplayFor(modelItem => item.Name)
                             </h5>
                             <div class="d-flex">
                                 <span>Price: </span>
                                 <p class="mx-3">@item.Price.ToString("#,##0") Vnđ</p>
                             </div>
+                            <a asp-controller="Product" asp-action="Display" asp-route-id="@item.Id">Detail</a>
                             <a asp-controller="ShoppingCart" asp-action="AddToCart" asp-route-productId="@item.Id" asp-route-quantity="@numOfQuantity">
                                 <button class="btn btn-outline-dark">
                                     <i class="bi-cart-fill me-1"></i> Add to Cart
@@ -34,3 +37,53 @@
         </div>
     </div>
 </section>
+<div>
+    <div class="page-info">
+        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+    </div>
+    <div class="page-menu">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+    </div>
+</div>
+
+<style>
+    .page-info {
+        background-color: #f2f2f2;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .page-menu {
+        display: flex;
+        justify-content: center;
+    }
+
+        .page-menu a {
+            color: #333;
+            padding: 5px 10px;
+            margin: 0 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+            .page-menu a:hover {
+                background-color: #eaeaea;
+            }
+</style>
+<style type="text/css">
+    #mau-nut a {
+        clear: both;
+        background-color: orange;
+        color: snow;
+    }
+
+        #mau-nut a:hover {
+            background-color: darkcyan;
+            color: snow;
+        }
+</style>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+

@@ -21,10 +21,21 @@ namespace Nhom1_LTWEB_Webbandongho.Controllers
             _categoryRepository = categoryRepository;
         }
         //lấy danh sách tất cả các sản phẩm trong DB
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page, String searchString)
         {
+            if (page == null)
+            {
+                page = 1;
+            }
+            var pageNum = page ?? 1; 
+            var pageSize = 3;
             var products = await _productRepository.GetAllAsync();
-            return View(products);
+            if(!string.IsNullOrEmpty(searchString))
+            {
+               products = await _productRepository.GetByNameAsync(searchString);
+            }
+            var view = products.ToPagedList(pageNum, pageSize);
+            return View(view);
         }
 
         public IActionResult Privacy()
@@ -38,6 +49,9 @@ namespace Nhom1_LTWEB_Webbandongho.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-
+         public async Task<IActionResult> _SlidePartial()
+        {
+            return PartialView();
+        }
     }
 }
