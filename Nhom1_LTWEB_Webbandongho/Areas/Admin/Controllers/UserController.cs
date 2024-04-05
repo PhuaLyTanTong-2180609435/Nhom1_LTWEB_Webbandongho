@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Nhom1_LTWEB_Webbandongho.Areas.Admin.Models;
 using Nhom1_LTWEB_Webbandongho.Models;
 using Nhom1_LTWEB_Webbandongho.Repositories;
@@ -24,8 +25,9 @@ namespace Nhom1_LTWEB_Webbandongho.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var users = await _userRespository.GetAllAsync();
-            
-            _context.UserRoles
+            var role = await _context.Roles.ToListAsync();
+            ViewBag.Roles = new SelectList(role, "Id", "Name");
+
             return View(users);
         }
         public async Task<IActionResult> Display(string id)

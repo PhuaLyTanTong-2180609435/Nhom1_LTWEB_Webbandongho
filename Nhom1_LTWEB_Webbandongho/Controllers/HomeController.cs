@@ -12,25 +12,21 @@ namespace Nhom1_LTWEB_Webbandongho.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
-        public HomeController(ILogger<HomeController> logger, IProductRepository productRepository, ICategoryRepository categoryRepository)
+
+        public HomeController(ILogger<HomeController> logger, IProductRepository
+            productRepository, ICategoryRepository categoryRepository)
         {
             _logger = logger;
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
         }
-
-        public async Task<IActionResult> Index(int ?page)
+        //lấy danh sách tất cả các sản phẩm trong DB
+        public async Task<IActionResult> Index()
         {
-            if (page == null)
-            {
-                page = 1;
-            }
-            var product = await _productRepository.GetAllAsync();
-            int pageSize = 3;
-            int pageNum = page ?? 1;
-            return View(product.ToPagedList(pageNum,pageSize));
+            var products = await _productRepository.GetAllAsync();
+            return View(products);
         }
-       
+
         public IActionResult Privacy()
         {
             return View();
@@ -42,6 +38,6 @@ namespace Nhom1_LTWEB_Webbandongho.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        
+
     }
 }
