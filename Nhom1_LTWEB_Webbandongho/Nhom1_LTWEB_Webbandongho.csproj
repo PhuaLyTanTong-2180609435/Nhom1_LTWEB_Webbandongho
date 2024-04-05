@@ -22,11 +22,10 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\User\Controllers\" />
-    <Folder Include="Areas\User\Data\" />
-    <Folder Include="Areas\User\Models\" />
-    <Folder Include="Areas\User\Views\" />
+    <Folder Include="Areas\Customer\Data\" />
+    <Folder Include="Areas\Customer\Models\" />
+    <Folder Include="Areas\Employer\Data\" />
+    <Folder Include="Areas\Employer\Models\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 

@@ -1,4 +1,4 @@
-﻿namespace Nhom1_LTWEB_Webbandongho.Models
+﻿namespace Nhom1_LTWEB_Webbandongho.Areas.Admin.Models
 {
     public static class SD
     {

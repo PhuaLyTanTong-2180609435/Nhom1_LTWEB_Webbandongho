@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using Nhom1_LTWEB_Webbandongho.Areas.Admin.Models;
 using Nhom1_LTWEB_Webbandongho.Models;
 
 namespace Nhom1_LTWEB_Webbandongho.Areas.Identity.Pages.Account
