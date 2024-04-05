@@ -81,8 +81,7 @@ namespace Nhom1_LTWEB_Webbandongho.Areas.Admin.Controllers
                 return NotFound();
             }
             var categories = await _categoryRepository.GetAllAsync();
-            ViewBag.Categories = new SelectList(categories, "Id", "Name",
-            product.CategoryId);
+            ViewBag.Categories = new SelectList(categories, "Id", "Name",product.CategoryId);
             return View(product);
         }
         // Xử lý cập nhật sản phẩm

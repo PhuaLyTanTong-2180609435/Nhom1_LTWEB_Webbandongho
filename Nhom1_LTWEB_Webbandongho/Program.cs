@@ -25,7 +25,7 @@ namespace Nhom1_LTWEB_Webbandongho
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IProductRepository, EFProductRepository>();
             builder.Services.AddScoped<ICategoryRepository, EFCategoryRepository>();
-
+            builder.Services.AddScoped<IUserRespository, EFUserRespository>();
             builder.Services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = $"/Identity/Account/Login";
@@ -65,7 +65,7 @@ namespace Nhom1_LTWEB_Webbandongho
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-
+           
             app.Run();
         }
     }
