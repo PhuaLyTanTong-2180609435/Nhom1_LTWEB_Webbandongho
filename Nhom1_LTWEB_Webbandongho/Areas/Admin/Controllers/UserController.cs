@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Nhom1_LTWEB_Webbandongho.Models;
+using Nhom1_LTWEB_Webbandongho.Areas.Admin.Models;
+
 
 namespace Nhom1_LTWEB_Webbandongho.Areas.Admin.Controllers
 {

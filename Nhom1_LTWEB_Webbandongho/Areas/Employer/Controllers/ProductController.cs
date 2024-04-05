@@ -5,10 +5,10 @@ using Nhom1_LTWEB_Webbandongho.Areas.Admin.Models;
 using Nhom1_LTWEB_Webbandongho.Models;
 using Nhom1_LTWEB_Webbandongho.Repositories;
 
-namespace Nhom1_LTWEB_Webbandongho.Areas.Admin.Controllers
+namespace Nhom1_LTWEB_Webbandongho.Areas.Employer.Controllers
 {
-    [Area("Admin")]
-    [Authorize(Roles = SD.Role_Admin)]
+    [Area("Employer")]
+    [Authorize(Roles = SD.Role_Employee)]
     public class ProductController : Controller
     {
         private readonly IProductRepository _productRepository;
@@ -34,7 +34,8 @@ namespace Nhom1_LTWEB_Webbandongho.Areas.Admin.Controllers
         }
         // Xử lý thêm sản phẩm mới
         [HttpPost]
-        public async Task<IActionResult> Add(Product product, IFormFile imageUrl)
+        public async Task<IActionResult> Add(Product product, IFormFile
+        imageUrl)
         {
             if (ModelState.IsValid)
             {

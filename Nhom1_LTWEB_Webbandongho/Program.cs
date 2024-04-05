@@ -54,7 +54,12 @@ namespace Nhom1_LTWEB_Webbandongho
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(name:"Admin",pattern:"{area:exists}/{controller=Product}/{action=Index}/{id?}");
+
                
+
+                endpoints.MapControllerRoute( name: "Employer",pattern: "{area:exists}/{controller=Product}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(name: "Customer", pattern: "{area:exists}/{controller=Product}/{action=Index}/{id?}");
+
                 endpoints.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
             });
             app.MapControllerRoute(
