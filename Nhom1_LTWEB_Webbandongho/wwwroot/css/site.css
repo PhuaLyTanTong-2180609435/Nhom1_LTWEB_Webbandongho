@@ -1,18 +1,164 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+
+.nav-bg {
+    background-color: #00008B;
+}
+
+.main-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+main-menu li {
+    position: relative;
+}
+
+.main-menu > li > a::before {
+    content: "";
+    height: 4px;
+    width: 0px;
+    background-color: red;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    transition: 0.20s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.main-menu > li:hover > a::before {
+    width: 100%;
+}
+
+.main-menu > li:hover > a > i {
+    color: red;
+}
+
+.main-menu li a {
+    color: white;
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+
+.main-menu li:hover ul.sub-menu {
+    display: block;
+}
+
+.sub-menu {
+    position: absolute;
+    background-color: #00008B;
+    list-style: none;
+    width: 200px;
+    z-index: 99;
+    border: 1px solid rgb(97, 97, 97);
+    display: none;
+}
+
+    .sub-menu a {
+        padding: 8px 15px;
+        border-bottom: 1px solid rgb(200, 226, 255);
+    }
+
+    .sub-menu li:hover a {
+        border-bottom: 1px solid rgb(94, 94, 94);
+    }
+
+    .sub-menu li:last-child a {
+        border: none;
+    }
+
+.ptthanhtoan {
+    width: 200px;
+}
+
+.form-signin {
+    width: 100%;
+}
+
+    .form-signin .btn {
+        font-size: 80%;
+        letter-spacing: .1rem;
+        font-weight: bold;
+        padding: 1rem;
+        transition: all 0.2s;
+    }
+
+.form-label-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.btn-google {
+    color: white;
+    background-color: #ea4335;
+}
+
+.btn-facebook {
+    color: white;
+    background-color: #3b5998;
+}
+
+.modal-body hr {
+    position: relative;
+    top: 1px;
+}
+
+.btn-signin:hover {
+    color: black !important;
+}
+
+
+#formdangky .form-signin p {
+    margin-bottom: 3px;
+    font-size: 13px;
+}
+
+#formdangky .form-signin a {
+    display: block;
+    font-size: 13px;
+}
+
+label.error {
+    display: inline-block;
+    color: red;
+    width: 300px;
+    margin-top: 5px;
+    margin-bottom: 0;
+    font-size: 13px;
+}
+
+footer .row a {
+    text-decoration: none;
+    display: block;
+    color: black;
+    transition: 0.3s;
+    padding-bottom: 5px;
+    font-size: 14px;
+}
+
+    footer .row a:hover {
+        color: blue;
+    }
+
+footer .header {
+    font-size: 14px;
+    margin-bottom: 13px;
 }
