@@ -22,6 +22,14 @@ namespace Nhom1_LTWEB_Webbandongho
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddRazorPages();
+            builder.Services.AddDistributedMemoryCache();
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<IProductRepository, EFProductRepository>();
             builder.Services.AddScoped<ICategoryRepository, EFCategoryRepository>();
@@ -44,6 +52,8 @@ namespace Nhom1_LTWEB_Webbandongho
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseRouting();
             app.UseAuthentication();;
