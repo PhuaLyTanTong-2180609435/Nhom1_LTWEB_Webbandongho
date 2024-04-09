@@ -217,3 +217,46 @@ input {
     background-color: DodgerBlue !important;
     color: #ffffff;
 }
+
+
+.login-section {
+    background-color: #f8f9fa;
+    padding: 30px;
+    border-radius: 5px;
+}
+
+.form-floating {
+    margin-bottom: 20px;
+}
+
+    .form-floating input {
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid #ced4da;
+    }
+
+        .form-floating input:focus {
+            border-color: #80bdff;
+        }
+
+    .form-floating label {
+        color: #495057;
+    }
+
+.form-check-input {
+    margin-right: 5px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+    }
+
+.text-danger {
+    color: #dc3545;
+}

@@ -8,9 +8,11 @@ namespace Nhom1_LTWEB_Webbandongho.Repositories
     {
         Task<IEnumerable<ApplicationUser>> GetAllAsync();
         Task<ApplicationUser> GetByIdAsync(string id);
-        Task AddAsync(ApplicationUser user);
         Task UpdateAsync(ApplicationUser user);
-        Task DeleteAsync(string id);
-
+        Task<IEnumerable<string>> GetUserRolesAsync(string userId);
+        Task AddUserToRoleAsync(ApplicationUser user, string roleName);
+        Task RemoveUserFromRoleAsync(ApplicationUser user, string roleName);
+        Task<bool> IsUserInRoleAsync(ApplicationUser user, string roleName);
+        Task EditUserRoleAsync(string userId, string roleName);
     }
 }

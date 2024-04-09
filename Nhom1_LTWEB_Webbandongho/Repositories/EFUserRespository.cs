@@ -28,27 +28,53 @@ namespace Nhom1_LTWEB_Webbandongho.Repositories
 
         public async Task<ApplicationUser> GetByIdAsync(string id)
         {
-            return await _context.Users.FindAsync(id);
-        }
-
-        public async Task AddAsync(ApplicationUser user)
-        {
-            await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
+            return await _userManager.FindByIdAsync(id);
         }
 
         public async Task UpdateAsync(ApplicationUser user)
         {
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
+            await _userManager.UpdateAsync(user);
         }
-
         public async Task DeleteAsync(string id)
         {
-            var user = await _context.Users.FindAsync(id);
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
+            var user = await _userManager.FindByIdAsync(id);
+            await _userManager.DeleteAsync(user);
+        }
+        public async Task<IEnumerable<string>> GetUserRolesAsync(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            return await _userManager.GetRolesAsync(user);
         }
 
+        public async Task AddUserToRoleAsync(ApplicationUser user, string roleName)
+        {
+            await _userManager.AddToRoleAsync(user, roleName);
+        }
+
+        public async Task RemoveUserFromRoleAsync(ApplicationUser user, string roleName)
+        {
+            await _userManager.RemoveFromRoleAsync(user, roleName);
+        }
+
+        public async Task<bool> IsUserInRoleAsync(ApplicationUser user, string roleName)
+        {
+            return await _userManager.IsInRoleAsync(user, roleName);
+        }
+        public async Task EditUserRoleAsync(string id, string roleName)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                throw new InvalidOperationException($"User with ID '{id}' not found.");
+            }
+
+            var currentRoles = await _userManager.GetRolesAsync(user);
+            foreach (var role in currentRoles)
+            {
+                await _userManager.RemoveFromRoleAsync(user, role);
+            }
+
+            await _userManager.AddToRoleAsync(user, roleName);
+        }
     }
 }

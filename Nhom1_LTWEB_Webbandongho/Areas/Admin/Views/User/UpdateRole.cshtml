@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Nhom1_LTWEB_Webbandongho.Areas.Admin.Models
+@using Nhom1_LTWEB_Webbandongho.Models
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model Nhom1_LTWEB_Webbandongho.Areas.Admin.Controllers.UserEditViewModel
+@{
+    ViewData["Title"] = "Update user ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Edit User</h2>
+
+<div class="update-role-form">
+    <form asp-action="UpdateRole" method="post">
+        <div class="form-group">
+            <label for="userId">User ID:</label>
+            <input id="userId" asp-for="UserId" class="form-control" readonly />
+        </div>
+        <div class="form-group">
+            <label for="userEmail">User Email:</label>
+            <input id="userEmail" asp-for="UserEmail" class="form-control" readonly />
+        </div>
+        <div class="form-group">
+            <label for="selectedRole">Select Role:</label>
+            <select id="selectedRole" asp-for="SelectedRole" asp-items="@Model.Roles" class="form-control"></select>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Role</button>
+    </form>
+</div>
