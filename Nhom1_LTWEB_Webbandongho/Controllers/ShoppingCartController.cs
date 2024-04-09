@@ -56,7 +56,7 @@ HttpContext.Session.GetObjectFromJson<ShoppingCart>("Cart");
             return View("OrderCompleted", order.Id); // Trang xác nhận hoàn thành đơn hàng
 
         }
-        [AllowAnonymous]
+        
         public async Task<IActionResult> AddToCart(int productId, int quantity)
         {
             // Giả sử bạn có phương thức lấy thông tin sản phẩm từ productId

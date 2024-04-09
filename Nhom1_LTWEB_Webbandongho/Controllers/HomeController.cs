@@ -11,14 +11,14 @@ namespace Nhom1_LTWEB_Webbandongho.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IProductRepository _productRepository;
-        private readonly ICategoryRepository _categoryRepository;
-
+        private readonly ICategoryRepository _categoryRepository;   
         public HomeController(ILogger<HomeController> logger, IProductRepository
             productRepository, ICategoryRepository categoryRepository)
         {
             _logger = logger;
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
+           
         }
         //lấy danh sách tất cả các sản phẩm trong DB
         public async Task<IActionResult> Index(int? page, String searchString)
@@ -28,7 +28,7 @@ namespace Nhom1_LTWEB_Webbandongho.Controllers
                 page = 1;
             }
             var pageNum = page ?? 1; 
-            var pageSize = 3;
+            var pageSize = 4;
             var products = await _productRepository.GetAllAsync();
             if(!string.IsNullOrEmpty(searchString))
             {
@@ -37,6 +37,16 @@ namespace Nhom1_LTWEB_Webbandongho.Controllers
             var view = products.ToPagedList(pageNum, pageSize);
             return View(view);
         }
+        public async Task<IActionResult> Display(int id)
+        {
+            var product = await _productRepository.GetByIdAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
+        }
+
 
         public IActionResult Privacy()
         {
@@ -49,9 +59,6 @@ namespace Nhom1_LTWEB_Webbandongho.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-         public async Task<IActionResult> _SlidePartial()
-        {
-            return PartialView();
-        }
+        
     }
 }

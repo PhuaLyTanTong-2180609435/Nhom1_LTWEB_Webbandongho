@@ -120,17 +120,14 @@ namespace Nhom1_LTWEB_Webbandongho.Areas.Identity.Pages.Account
             if (!_roleManager.RoleExistsAsync(SD.Role_Customer).GetAwaiter().GetResult())
             {
                 _roleManager.CreateAsync(new IdentityRole(SD.Role_Customer)).GetAwaiter().GetResult();
-                _roleManager.CreateAsync(new IdentityRole(SD.Role_Employee)).GetAwaiter().GetResult();
-                _roleManager.CreateAsync(new IdentityRole(SD.Role_Company)).GetAwaiter().GetResult();
-                _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin)).GetAwaiter().GetResult();
+               
             }
             Input = new()
             {
-                RoleList = _roleManager.Roles.Select(x => x.Name).Select(i => new SelectListItem
+                RoleList = new List<SelectListItem>
                 {
-                    Text = i,
-                    Value = i
-                })
+                    new SelectListItem { Value = SD.Role_Customer, Text = "Customer" }
+                }
             };
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
@@ -151,14 +148,7 @@ namespace Nhom1_LTWEB_Webbandongho.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
-                    if (!String.IsNullOrEmpty(Input.Role))
-                    {
-                        await _userManager.AddToRoleAsync(user, Input.Role);
-                    }
-                    else
-                    {
-                        await _userManager.AddToRoleAsync(user, SD.Role_Customer);
-                    }
+                    await _userManager.AddToRoleAsync(user, SD.Role_Customer);
                     var userId = await _userManager.GetUserIdAsync(user);
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

@@ -25,5 +25,6 @@
     <button class="btn btn-outline-dark" type="submit">Checkout</button>
 </form>*@
 <form asp-action="Checkout" method="get">
+    @Html.AntiForgeryToken()
     <button class="btn btn-outline-dark" >Checkout</button>
     </form>

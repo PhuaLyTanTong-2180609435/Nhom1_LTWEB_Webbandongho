@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.Options;
 using Microsoft.EntityFrameworkCore;
 using Nhom1_LTWEB_Webbandongho.Areas.Admin.Models;
 using Nhom1_LTWEB_Webbandongho.Models;
@@ -15,23 +16,23 @@ namespace Nhom1_LTWEB_Webbandongho.Areas.Admin.Controllers
     public class UserController : Controller
     {
         private readonly IUserRespository _userRespository;
-        
-     
+       
+
+
 
         public UserController(IUserRespository userRespository)
         {
             _userRespository = userRespository;
-            
-           
         }
         public async Task<IActionResult> Index()
         {
-
+          
             var users = await _userRespository.GetAllAsync();            
             return View(users);
         }
         public async Task<IActionResult> Display(string id)
         {
+           
             var users = await _userRespository.GetByIdAsync(id);
             if (users == null)
             {
@@ -40,8 +41,9 @@ namespace Nhom1_LTWEB_Webbandongho.Areas.Admin.Controllers
             return View(users);
         }
 
-        public async Task<IActionResult> Update(string id)
+        public async Task<IActionResult> Update(string id, string role)
         {
+            
             var users = await _userRespository.GetByIdAsync(id);
             if (users == null)
             {

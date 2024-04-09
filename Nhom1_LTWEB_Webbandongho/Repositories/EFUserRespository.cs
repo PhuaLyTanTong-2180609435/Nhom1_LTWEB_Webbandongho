@@ -1,16 +1,24 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Nhom1_LTWEB_Webbandongho.Areas.Admin.Models;
 using Nhom1_LTWEB_Webbandongho.Models;
 
 namespace Nhom1_LTWEB_Webbandongho.Repositories
 {
+    [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class EFUserRespository : IUserRespository
     {
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly ApplicationDbContext _context;
 
-        public EFUserRespository(ApplicationDbContext context)
+        public EFUserRespository(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         public async Task<IEnumerable<ApplicationUser>> GetAllAsync()
@@ -41,5 +49,6 @@ namespace Nhom1_LTWEB_Webbandongho.Repositories
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
         }
+
     }
 }
