@@ -23,7 +23,7 @@ namespace Nhom1_LTWEB_Webbandongho.Repositories
 
         public async Task<IEnumerable<ApplicationUser>> GetAllAsync()
         {
-            return await _context.Users.ToListAsync();
+            return await _userManager.Users.ToListAsync();
         }
 
         public async Task<ApplicationUser> GetByIdAsync(string id)

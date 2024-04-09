@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Nhom1_LTWEB_Webbandongho.Areas.Admin.Models;
+using Nhom1_LTWEB_Webbandongho.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace Nhom1_LTWEB_Webbandongho.Models

@@ -1,8 +1,14 @@
-﻿@model IEnumerable<Nhom1_LTWEB_Webbandongho.Models.ApplicationUser>
+﻿@using Microsoft.AspNetCore.Identity
+@using Nhom1_LTWEB_Webbandongho.Areas.Admin.Models
+@using Nhom1_LTWEB_Webbandongho.Models
+@model Nhom1_LTWEB_Webbandongho.Areas.Admin.Controllers.UserRolesViewModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "User list ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
+
 <h2>User</h2>
 <table class="table">
     <thead>
@@ -12,11 +18,11 @@
             <th>UserName</th>
             <th>age</th>
             <th>gmail</th>
-            <th>SD</th>
+            <th>Roles</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var user in Model)
+        @foreach (var user in Model.Users)
         {
             <tr>
                 <td>@user.Id</td>
@@ -24,7 +30,14 @@
                 <td>@user.UserName</td>
                 <td>@user.Age </td>
                 <td>@user.Email</td>
-                <td>@user.</td>
+              
+                <td>
+                    @foreach (var role in Model.UserRoles[user.Id])
+                    {
+                        <span>@role</span>
+                        <br />
+                    }
+                </td>
                 <td>
                     <a asp-action="Display" asp-route-id="@user.Id">View</a> |
                     <a asp-action="Update" asp-route-id="@user.Id">Edit</a> |
