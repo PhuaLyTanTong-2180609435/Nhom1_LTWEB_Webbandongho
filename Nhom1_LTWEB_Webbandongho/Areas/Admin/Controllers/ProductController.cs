@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Nhom1_LTWEB_Webbandongho.Areas.Admin.Models;
 using Nhom1_LTWEB_Webbandongho.Models;
 using Nhom1_LTWEB_Webbandongho.Repositories;
-
+using X.PagedList;
 namespace Nhom1_LTWEB_Webbandongho.Areas.Admin.Controllers
 {
     [Area("Admin")]
@@ -20,10 +20,21 @@ namespace Nhom1_LTWEB_Webbandongho.Areas.Admin.Controllers
             _categoryRepository = categoryRepository;
         }
         // Hiển thị danh sách sản phẩm
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page,String searchString)
         {
+            if (page == null)
+            {
+                page = 1;
+            }
+            var pageNumber = page ?? 1; // Số trang mặc định là trang 1
+            var pageSize = 5; // Số lượng mục trên mỗi trang
             var products = await _productRepository.GetAllAsync();
-            return View(products);
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                products = await _productRepository.GetByNameAsync(searchString);
+            }
+
+            return View(products.ToPagedList(pageNumber, pageSize));
         }
 
         public async Task<IActionResult> Add()

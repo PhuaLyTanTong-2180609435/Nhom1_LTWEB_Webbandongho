@@ -14,6 +14,8 @@ namespace Nhom1_LTWEB_Webbandongho.Models
         [Required]
         public string FullName { get; set; }
         public string? Address { get; set; }
+        [Range(1,100)]
         public string? Age { get; set; }
+        
     }
 }

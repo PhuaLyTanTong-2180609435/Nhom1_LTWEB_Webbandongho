@@ -59,7 +59,16 @@
                             <p>
                                 @foreach (var provider in Model.ExternalLogins!)
                                 {
-                                    <button type="submit" class="btn btn-primary mb-2" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    if (provider.Name.Contains("Google")) // Kiểm tra xem dịch vụ là của Google hay không
+                                    {
+                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">Login with @provider.DisplayName</button>
+                                    }
+
+                                    else
+                                    {
+                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+
+                                    }
                                 }
                             </p>
                         </div>
@@ -72,5 +81,5 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-   
+
 }

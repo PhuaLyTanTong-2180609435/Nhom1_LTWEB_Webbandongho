@@ -7,7 +7,7 @@ namespace Nhom1_LTWEB_Webbandongho.Models
         public int Id { get; set; }
         [Required, StringLength(100)]
         public string Name { get; set; }
-        [Range(0.01, 2000000.00)]
+        [Range(1, 99999999999999999)]
         public decimal Price { get; set; }
         public string Description { get; set; }
         public string? ImageUrl { get; set; }

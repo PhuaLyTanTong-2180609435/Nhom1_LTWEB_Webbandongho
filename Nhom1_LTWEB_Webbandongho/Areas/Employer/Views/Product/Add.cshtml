@@ -2,6 +2,8 @@
 @using Microsoft.AspNetCore.Mvc.Rendering
 @{
     ViewData["Title"] = "Add Product";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 }
 <h2>Add Product</h2>
 <form asp-action="Add" method="post" enctype="multipart/form-data">
@@ -31,3 +33,12 @@
     </div>
     <button type="submit" class="btn btn-primary">Add</button>
 </form>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

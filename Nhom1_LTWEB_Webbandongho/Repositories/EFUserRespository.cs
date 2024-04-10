@@ -30,7 +30,10 @@ namespace Nhom1_LTWEB_Webbandongho.Repositories
         {
             return await _userManager.FindByIdAsync(id);
         }
-
+        public async Task<IEnumerable<ApplicationUser>> GetByNameAsync(string name)
+        {
+            return await _context.Users.Where(x => x.FullName.Replace(" ", "").ToLower().Contains(name.Replace(" ", "").ToLower())).ToListAsync();
+        }
         public async Task UpdateAsync(ApplicationUser user)
         {
             await _userManager.UpdateAsync(user);

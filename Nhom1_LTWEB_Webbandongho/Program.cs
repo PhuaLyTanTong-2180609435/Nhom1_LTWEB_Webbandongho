@@ -14,8 +14,13 @@ namespace Nhom1_LTWEB_Webbandongho
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-           
-
+            var configuration = builder.Configuration;
+            IConfigurationSection googleAuthNSection = configuration.GetSection("Authentication:Google");
+            builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+            {
+                googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+                googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+            });
             builder.Services.AddDbContext<ApplicationDbContext>(options =>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddMvc(options =>
             {
@@ -66,11 +71,12 @@ namespace Nhom1_LTWEB_Webbandongho
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-          
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-
-            app.UseSession();
+            app.UseRouting();
+            app.UseAuthentication(); 
+            app.UseAuthorization();
+            app.UseExceptionHandler("/Home/Error");
+            
+           
             app.Use(async (context, next) =>
             {
                 context.Response.OnStarting(state =>
@@ -85,26 +91,22 @@ namespace Nhom1_LTWEB_Webbandongho
                 await next.Invoke();
 
             });
-            app.UseRouting();
-            app.UseAuthentication();;
-
-            app.UseAuthorization();
+           
             
-            //ở đây có lỗi
-            app.UseExceptionHandler("/Home/Error");
+
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseSession();
+
+
             app.MapRazorPages();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(name:"Admin",pattern:"{area:exists}/{controller=Product}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(name:"Employer",pattern: "{area:exists}/{controller=Product}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(name:"Customer", pattern: "{area:exists}/{controller=Product}/{action=Index}/{id?}");
-               
-
                 endpoints.MapControllerRoute(name: "default", pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
            
             app.Run();
         }

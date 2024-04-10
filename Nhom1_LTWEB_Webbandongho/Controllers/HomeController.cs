@@ -4,6 +4,8 @@ using X.PagedList;
 using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Nhom1_LTWEB_Webbandongho.Repositories;
+using System.Xml.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Nhom1_LTWEB_Webbandongho.Controllers
 {
@@ -11,14 +13,15 @@ namespace Nhom1_LTWEB_Webbandongho.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IProductRepository _productRepository;
-        private readonly ICategoryRepository _categoryRepository;   
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly ApplicationDbContext _context;
         public HomeController(ILogger<HomeController> logger, IProductRepository
-            productRepository, ICategoryRepository categoryRepository)
+            productRepository, ICategoryRepository categoryRepository, ApplicationDbContext context)
         {
             _logger = logger;
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
-           
+            _context = context;
         }
         //lấy danh sách tất cả các sản phẩm trong DB
         public async Task<IActionResult> Index(int? page, String searchString)
@@ -47,7 +50,32 @@ namespace Nhom1_LTWEB_Webbandongho.Controllers
             return View(product);
         }
 
+        /* public JsonResult Autocomplete(string term)
+         {
 
+             var data = _productRepository.GetByNameAsync(term);
+
+             return Json(data);
+         }*/
+        [HttpGet]
+        public async Task<IActionResult> Autocomplete(string searchString)
+        {
+            if (string.IsNullOrWhiteSpace(searchString))
+            {
+                return new BadRequestObjectResult(new { message = "Invalid search term." });
+            }
+
+            string searchTerm = searchString.ToLower();
+
+            var products = await _context.Products
+                .Include(p => p.Category)
+                .Where(p => p.Name.ToLower().Contains(searchTerm))
+                .Select(p => p.Name ) 
+                .ToListAsync();
+
+            return Json(products);
+        }
+        [Authorize]
         public IActionResult Privacy()
         {
             return View();

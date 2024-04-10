@@ -28,8 +28,12 @@ namespace Nhom1_LTWEB_Webbandongho.Areas.Admin.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index(int? page)
+        public async Task<IActionResult> Index(int? page, String searchString)
         {
+            if (page == null)
+            {
+                page = 1;
+            }
             var pageNumber = page ?? 1; // Số trang mặc định là trang 1
             var pageSize = 6; // Số lượng mục trên mỗi trang
 
@@ -42,6 +46,10 @@ namespace Nhom1_LTWEB_Webbandongho.Areas.Admin.Controllers
                 userRoles.Add(user.Id, userRoleNames.ToList());
             }
 
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                users = await _userRepository.GetByNameAsync(searchString);
+            }
             var viewModel = new UserRolesViewModel
             {
                 Users = users.ToPagedList(pageNumber, pageSize),

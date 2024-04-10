@@ -1,30 +1,36 @@
-﻿@model ShoppingCart
-<h2>Your Cart</h2>
-<table>
-    <tr>
-        <th>Product</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <th>Total</th>
-    </tr>
-    @foreach (var item in Model.Items)
-    {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.Quantity</td>
-            <td>@item.Price</td>
-            <td>@(item.Price * item.Quantity)</td>
-            <td>
-                <a asp-action="RemoveFromCart" asp-route-productId="@item.ProductId">Remove</a>
-            </td>
-        </tr>
-    }
-</table>
-@*checkout*@
-@*<form method="post" asp-controller="ShoppingCart" asp-action="Checkout">
-    <button class="btn btn-outline-dark" type="submit">Checkout</button>
-</form>*@
-<form asp-action="Checkout" method="get">
+﻿@model Nhom1_LTWEB_Webbandongho.Models.ShoppingCart
+
+<h2 class="text-center">Your Cart</h2>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Total</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Price.ToString("#,##0") Vnđ</td>
+                    <td>@((item.Price * item.Quantity).ToString("#,##0") + " Vnđ")</td>
+                    <td>
+                        <a class="btn btn-sm btn-danger" asp-action="RemoveFromCart" asp-route-productId="@item.ProductId">Remove</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<form asp-action="Checkout" method="get" class="text-center mt-3">
     @Html.AntiForgeryToken()
-    <button class="btn btn-outline-dark" >Checkout</button>
-    </form>
+    <button type="submit" class="btn btn-primary">Checkout</button>
+</form>

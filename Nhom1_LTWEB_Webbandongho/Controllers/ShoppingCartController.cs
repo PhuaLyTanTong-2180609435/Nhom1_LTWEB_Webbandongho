@@ -20,11 +20,14 @@ namespace Nhom1_LTWEB_Webbandongho.Controllers
             _userManager = userManager;
             _productRepository = productRepository;
         }
+       
         public IActionResult OrderCompleted()
         {
+            // Lấy thông tin đơn hàng từ database sử dụng orderId và truyền vào view
+            
             return View();
         }
-        [HttpGet]
+        
         public IActionResult Checkout()
         {
             return View(new Order());
@@ -33,8 +36,7 @@ namespace Nhom1_LTWEB_Webbandongho.Controllers
         [HttpPost]
         public async Task<IActionResult> Checkout(Order order)
         {
-            var cart =
-HttpContext.Session.GetObjectFromJson<ShoppingCart>("Cart");
+            var cart = HttpContext.Session.GetObjectFromJson<ShoppingCart>("Cart");
             if (cart == null || !cart.Items.Any())
             {
                 // Xử lý giỏ hàng trống...
@@ -53,7 +55,7 @@ HttpContext.Session.GetObjectFromJson<ShoppingCart>("Cart");
             _context.Orders.Add(order);
             await _context.SaveChangesAsync();
             HttpContext.Session.Remove("Cart");
-            return View("OrderCompleted", order.Id); // Trang xác nhận hoàn thành đơn hàng
+            return View("OrderCompleted", order.Id);  // Trang xác nhận hoàn thành đơn hàng
 
         }
         
@@ -68,9 +70,7 @@ HttpContext.Session.GetObjectFromJson<ShoppingCart>("Cart");
                 Price = product.Price,
                 Quantity = quantity
             };
-            var cart =
-            HttpContext.Session.GetObjectFromJson<ShoppingCart>("Cart") ?? new
-            ShoppingCart();
+            var cart = HttpContext.Session.GetObjectFromJson<ShoppingCart>("Cart") ?? new ShoppingCart();
             cart.AddItem(cartItem);
             HttpContext.Session.SetObjectAsJson("Cart", cart);
             return RedirectToAction("Index", "Home");

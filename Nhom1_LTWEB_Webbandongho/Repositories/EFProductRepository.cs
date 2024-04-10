@@ -26,10 +26,12 @@ namespace Nhom1_LTWEB_Webbandongho.Repositories
 
         public async Task<IEnumerable<Product>> GetByNameAsync(string name)
         {
+            string searchTerm = name.Replace(" ", "").ToLower();
+
             return await _context.Products
-                     .Include(p => p.Category)
-                     .Where(x => x.Name.Replace(" ", "").ToLower().Contains(name.Replace(" ", "").ToLower()))
-                     .ToListAsync();
+                        .Include(p => p.Category)
+                        .Where(p => p.Name.Replace(" ", "").ToLower().Contains(searchTerm))
+                        .ToListAsync();
         }
         public async Task AddAsync(Product product)
         {

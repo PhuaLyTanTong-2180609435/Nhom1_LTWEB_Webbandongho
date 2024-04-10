@@ -28,16 +28,16 @@
 
                 <div class="collapse navbar-collapse" id="collapsibleNavId" >
                     <!-- form tìm kiếm  -->
-                    <form class="form-inline ml-auto my-2 my-lg-0 mr-3" method="get" action="@Url.Action("index") ">
+                    <form class="form-inline ml-auto my-2 my-lg-0 mr-3" method="get" action="@Url.Action("index") " autocomplete="off">
                         @Html.AntiForgeryToken()
-                        <div class="input-group autocomplete" style="width: 520px;">
+                        <div class="input-group autocomplete" style="width: 520px;" autocomplete="off">
                             <input type="text" class="form-control" aria-label="Small"
                                    placeholder="Nhập tên sản phẩm cần tìm kiếm..." name="searchString" id="myInput">
                             <div class="input-group-append">
                                 <button type="submit" class="btn" style="background-color: rgb(0, 0, 196); color: white;">
                                     <i class="fa fa-search"></i>
                                 </button>
-                            </div>
+                            </div>                          
                         </div>   
                     </form>
 
@@ -48,7 +48,7 @@
                         </div>
                         <form class="d-flex">
                             @Html.AntiForgeryToken()
-                            <button class="btn btn-outline-dark" type="submit" asp-controller="ShoppingCart" asp-action="Index">
+                            <button class="btn btn-outline-dark" asp-area="" type="submit" asp-controller="ShoppingCart" asp-action="Index">
                                 <i class="bi bi-cart-fill"></i>
                                 Cart
                             </button>
@@ -102,7 +102,7 @@
                     @if (User.IsInRole("Employee"))
                     {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Employer" asp-controller="Product" asp-action="Index">QuanLySanPham</a>
+                            <a  asp-area="Employer" asp-controller="Product" asp-action="Index">QuanLySanPham</a>
                         </li>
                     }
                 </ul>
@@ -145,19 +145,46 @@
                 <div class="col-md-3 col-xs-6">
                     <div class="ptthanhtoan">
                         <h3 class="header text-uppercase font-weight-bold">Phương thức thanh toán</h3>
-                        <img src="images/visa-payment.jpg" alt="visa-payment">
-                        <img src="images/master-card-payment.jpg" alt="master-card-payment">
-                        <img src="images/jcb-payment.jpg" alt="jcb-payment">
-                        <img src="images/payoo-payment.jpg" alt="payoo-payment">
+                        <img src="~/images/visa-payment.jpg" alt="visa-payment">
+                        <img src="~/images/master-card-payment.jpg" alt="master-card-payment">
+                        <img src="~/images/jcb-payment.jpg" alt="jcb-payment">
+                        <img src="~/images/payoo-payment.jpg" alt="payoo-payment">
                     </div>
                 </div>
             </div>
         </div>
-    </footer>   
+    </footer>
+   
+    <script>
+      
+        var autocompleteUrl = '@Url.Action("Autocomplete", "Home")';
+
+        $(document).ready(function () {
+            var myInput = document.getElementById("myInput");
+            myInput.addEventListener("keyup", function (event) {
+                var searchString = this.value;
+                $.ajax({
+                    url: autocompleteUrl,
+                    data: { searchString: searchString },
+                    dataType: "json",
+                    type: "GET",
+                    success: function (data) {
+                        var search_sach = data;
+                        console.log(data)
+                        autocomplete(document.getElementById("myInput"), search_sach);
+                    }
+                });
+            });
+        });
+    </script>
+
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>   
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="~/js/AutoSreach.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
